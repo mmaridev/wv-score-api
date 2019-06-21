@@ -12,16 +12,16 @@ df = pd.read_csv("dataset.csv")
 pg = progressbar.ProgressBar(max_value=len(df))
 
 new_db = {
-    "Unnamed: 0": [], "age": [], "sex": [], "cholesterol": [],
+    "age": [], "sex": [], "cholesterol": [],
     "max_press": [], "smokes": [], "score": []
 }
 counter = 0
 
 for k in df.iterrows():
     row = dict(k[1])
+    del row["Unnamed: 0"]
     for i in row:
         new_db[i].append(row[i])
-    del row["Unnamed: 0"]
     new_db["score"].append(query(**row))
     pg.update(counter)
     counter += 1
